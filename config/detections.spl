@@ -1,0 +1,29 @@
+/* ============================================================
+   Splunk searches — AD Detection Lab
+   Index: endpoint  |  Target host: WIN11-01
+   ============================================================ */
+
+/* 1. Full picture of the attack against a user */
+index=endpoint host=WIN11-01 jsmith
+
+/* 2. Break the activity down by event code
+      Expect a stack of 4625 (failed logon) + one 4624 (success) */
+index=endpoint host=WIN11-01 (EventCode=4625 OR EventCode=4624) jsmith
+| stats count by EventCode
+
+/* 3. Confirm attacker source + brute-force timing
+      Source_Network_Address should be 10.10.10.250 (KALI01) */
+index=endpoint host=WIN11-01 EventCode=4625 jsmith
+| table _time, Account_Name, Source_Network_Address, Logon_Type
+
+/* 4. DETECTION — saved as a scheduled alert
+      Fires when one source produces 5+ failed logons in a single minute.
+      Alert config: Scheduled, cron */5 * * * *, trigger when results > 0. */
+index=endpoint host=WIN11-01 EventCode=4625
+| bucket _time span=1m
+| stats count by _time, Account_Name, Source_Network_Address
+| where count >= 5
+
+/* 5. Atomic Red Team validation — did T1136.001 (create local account) show up?
+      EventCode 4720 = a user account was created. Absence = detection gap. */
+index=endpoint host=WIN11-01 EventCode=4720
