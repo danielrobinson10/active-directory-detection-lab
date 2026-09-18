@@ -81,10 +81,17 @@ Universal Forwarder · Sysmon · Kali Linux · Hydra · Atomic Red Team · MITRE
 | Path | What |
 |---|---|
 | **[BUILD-GUIDE.md](BUILD-GUIDE.md)** | Full step-by-step build — per-VM Proxmox wizard settings and every install. |
+| **[iam-jml/](iam-jml/)** | **Part 2** — PowerShell JML automation + RBAC role groups (identity lifecycle). |
 | [config/inputs.conf](config/inputs.conf) | Splunk Universal Forwarder input config (Windows + Sysmon → `endpoint` index). |
 | [config/detections.spl](config/detections.spl) | Splunk searches + the brute-force alert. |
 | [logical-network.png](logical-network.png) | Architecture diagram. |
 | [screenshots/](screenshots/) | Evidence screenshots from the build/attack/detection. |
+
+## Part 2 — IAM: JML automation & RBAC
+
+The lab now extends into **Identity & Access Management**: the full **Joiner–Mover–Leaver** lifecycle is
+automated with **PowerShell**, access is granted through a **role-based (RBAC)** group model, and every
+identity action is auditable back in Splunk. See **[iam-jml/](iam-jml/)**.
 
 ## Notes / gotchas solved during the build
 

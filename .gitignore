@@ -1,0 +1,26 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Never commit large raw video or personal prep material
+*.mp4
+*.mov
+*.mkv
+_personal-keep-private/
+RESUME-ENTRY.md
+LINKEDIN-POST.md
+VOICEOVER-SCRIPT.md
+
+# Secrets (safety net — this lab uses no real creds, but just in case)
+*.pem
+*.key
+secrets.*
+
+# JML run logs (keep the folder, ignore the logs)
+iam-jml/logs/*.log
