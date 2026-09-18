@@ -41,12 +41,16 @@ foreach ($dn in $user.MemberOf) {
     }
 }
 
-# 4) Hide from the Global Address List + stamp description with the leave date.
+# 4) Hide from the Global Address List (only if the Exchange schema exists) + stamp description.
 if ($PSCmdlet.ShouldProcess($SamAccountName, 'Hide from GAL + stamp description')) {
-    Set-ADUser -Identity $SamAccountName `
-        -Replace @{ msExchHideFromAddressLists = $true } -ErrorAction SilentlyContinue
+    try {
+        Set-ADUser -Identity $SamAccountName -Replace @{ msExchHideFromAddressLists = $true } -ErrorAction Stop
+        Write-Log "Hidden from Global Address List" OK
+    } catch {
+        Write-Log "Exchange schema not present - skipped GAL hide (expected in this lab)" INFO
+    }
     Set-ADUser -Identity $SamAccountName -Description "LEAVER - disabled $(Get-Date -Format yyyy-MM-dd)"
-    Write-Log "Stamped description; hidden from GAL (if Exchange schema present)" OK
+    Write-Log "Stamped description with leave date" OK
 }
 
 # 5) Move to the Disabled Users OU (out of active department OUs).
