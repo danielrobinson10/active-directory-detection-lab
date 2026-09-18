@@ -86,6 +86,12 @@ Universal Forwarder · Sysmon · Kali Linux · Hydra · Atomic Red Team · MITRE
 | [logical-network.png](logical-network.png) | Architecture diagram. |
 | [screenshots/](screenshots/) | Evidence screenshots from the build/attack/detection. |
 
+## Part 2 — IAM: JML automation & RBAC
+
+The lab now extends into **Identity & Access Management**: the full **Joiner–Mover–Leaver** lifecycle is
+automated with **PowerShell**, access is granted through a **role-based (RBAC)** group model, and every
+identity action is auditable back in Splunk. See **[iam-jml/](iam-jml/)**.
+
 ## Notes / gotchas solved during the build
 
 - **Crowbar is deprecated on modern Kali** (FreeRDP 3) → used **Hydra** instead.
