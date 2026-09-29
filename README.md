@@ -93,6 +93,10 @@ The lab now extends into **Identity & Access Management**: the full **Joiner–M
 automated with **PowerShell**, access is granted through a **role-based (RBAC)** group model, and every
 identity action is auditable back in Splunk. See **[iam-jml/](iam-jml/)**.
 
+▶️ **Part 2 video walkthrough:** https://youtu.be/JJCAhVqbkzo
+
+![JML lifecycle in Splunk](iam-jml/screenshots/01-splunk-jml-timeline.png)
+
 ## Notes / gotchas solved during the build
 
 - **Crowbar is deprecated on modern Kali** (FreeRDP 3) → used **Hydra** instead.

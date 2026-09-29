@@ -35,6 +35,10 @@ OU=RobinsCapital
 └── OU=Disabled Users  (leavers land here)
 ```
 
+The structure built by `Setup-LabIAM.ps1`, seen in Active Directory Users and Computers:
+
+![OU structure in ADUC](screenshots/02-aduc-ou-structure.png)
+
 ## The scripts
 
 | Script | Lifecycle stage | What it does |
@@ -92,6 +96,14 @@ index=endpoint host=ADDC01 (EventCode=4720 OR EventCode=4722 OR EventCode=4725
 | table _time, action, Account_Name, Target_Account_Name
 | sort _time
 ```
+
+The full Joiner → Mover → Leaver lifecycle reconstructed in Splunk:
+
+![JML lifecycle in Splunk](screenshots/01-splunk-jml-timeline.png)
+
+And the Leaver result in AD — the account disabled and moved to the Disabled Users OU, retained for audit:
+
+![Leaver disabled in ADUC](screenshots/03-aduc-leaver-disabled.png)
 
 This turns identity operations into detections too — e.g. alert on a **user added to a privileged
 group outside the JML process**, or a **disabled leaver account being re-enabled**.
